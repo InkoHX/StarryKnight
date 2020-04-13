@@ -1,0 +1,18 @@
+{
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.eol": "\n",
+  "editor.tabSize": 2,
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "cSpell.enableFiletypes": [
+    "!json",
+    "!jsonc"
+  ],
+  "cSpell.words": [
+    "Finalizer",
+    "Hypie",
+    "deepmerge",
+    "finalizers",
+    "typeorm"
+  ]
+}

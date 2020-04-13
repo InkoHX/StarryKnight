@@ -1,0 +1,6 @@
+export * from './CommandRegistry'
+export * from './EventRegistry'
+export * from './LanguageRegistry'
+export * from './InhibitorRegistry'
+export * from './FinalizerRegistry'
+export { RegisterData } from './Registry'
