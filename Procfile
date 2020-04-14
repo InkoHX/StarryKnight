@@ -1,0 +1,1 @@
+worker: yarn run compile && node ./dist/bot.js
