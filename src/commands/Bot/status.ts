@@ -37,7 +37,7 @@ export default class extends Command {
         model: cpuModel
       },
       memory: {
-        free: (memoryTotal - memoryFree).toFixed(2),
+        used: (memoryTotal - memoryFree).toFixed(2),
         total: memoryTotal.toFixed(2),
         heap: {
           total: heapTotal,

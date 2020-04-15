@@ -44,7 +44,7 @@ export interface StatusCommandData {
   },
   memory: {
     total: string,
-    free: string,
+    used: string,
     heap: {
       used: string,
       total: string
