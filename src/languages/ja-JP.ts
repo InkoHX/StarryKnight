@@ -32,7 +32,7 @@ const data: LanguageData = {
       description: 'ボットの情報を表示します。',
       statusContent: (data: DeepReadonly<StatusCommandData>): MessageEmbed => new MessageEmbed()
         .setColor('GREEN')
-        .setTitle('Statistics')
+        .setTitle('統計情報')
         .setTimestamp()
         .setDescription([
           `**・サーバー数**: ${data.bot.guilds}`,
