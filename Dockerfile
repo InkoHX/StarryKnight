@@ -15,4 +15,4 @@ RUN yarn --ignore-optional && \
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /opt/bin/
 RUN chmod +x /opt/bin/wait-for-it.sh
 
-ENTRYPOINT [ "/opt/bin/wait-for-it.sh", "-t", "30", "database:3306", "--", "yarn", "start" ]
+ENTRYPOINT [ "/opt/bin/wait-for-it.sh", "-t", "30", "starryknight_database:5432", "--", "yarn", "start" ]

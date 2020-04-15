@@ -36,6 +36,27 @@ export class Language extends Structure {
   }
 }
 
+export interface StatusCommandData {
+  cpu: {
+    model: string,
+    free: number,
+    total: number
+  },
+  memory: {
+    total: string,
+    free: string,
+    heap: {
+      used: string,
+      total: string
+    }
+  },
+  bot: {
+    guilds: number,
+    users: number,
+    channels: number
+  }
+}
+
 export interface BaseLanguageData {
   command: {
     help: {
@@ -55,6 +76,10 @@ export interface BaseLanguageData {
     },
     ping: {
       description: string
+    },
+    status: {
+      description: string,
+      statusContent: (data: DeepReadonly<StatusCommandData>) => MessageEmbed
     }
   },
   error: {

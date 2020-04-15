@@ -13,6 +13,8 @@
     "Hypie",
     "deepmerge",
     "finalizers",
+    "postgres",
+    "starryknight",
     "typeorm"
   ]
 }

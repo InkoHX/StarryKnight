@@ -1,15 +1,13 @@
-<img src="https://i.imgur.com/czROpZP.png" align="right" width="128px" height="128px"/>
+# StarryKnight
 
-# Hypie
+**This is a Discord bot using Hypie.**
 
-**Hypie is a template that makes it easy to develop Discord bots.**
-
-![CI](https://github.com/InkoHX/Hypie/workflows/CI/badge.svg)
+![CI](https://github.com/InkoHX/StarryKnight/workflows/CI/badge.svg)
 
 ## Features
 
 - Support for multiple databases using TypeORM
-  - MySQL, SQLite, MongoDB, MariaDB, Cordova, Microsoft SQL Server, PostgresSQL, CockroachDB (default: SQLite)
+  - MySQL, SQLite, MongoDB, MariaDB, Cordova, Microsoft SQL Server, PostgresSQL, CockroachDB (default: Postgres)
   - Migrations
   - Active Record
 - Multi-language support (default: Japanese)

@@ -1,7 +1,8 @@
 import { MessageEmbed, PermissionString } from 'discord.js'
 
 import { Client, Command, Language } from '..'
-import { LanguageData } from '../structures'
+import { LanguageData, StatusCommandData } from '../structures'
+import { DeepReadonly } from 'utility-types'
 
 const data: LanguageData = {
   command: {
@@ -26,6 +27,23 @@ const data: LanguageData = {
     },
     ping: {
       description: '応答速度を計測します。'
+    },
+    status: {
+      description: 'ボットの情報を表示します。',
+      statusContent: (data: DeepReadonly<StatusCommandData>): MessageEmbed => new MessageEmbed()
+        .setColor('GREEN')
+        .setTitle('Statistics')
+        .setTimestamp()
+        .setDescription([
+          `**・サーバー数**: ${data.bot.guilds}`,
+          `**・ユーザー数**: ${data.bot.users}`,
+          `**・チャンネル数**: ${data.bot.channels}`,
+          '',
+          `**・CPU モデル**: ${data.cpu.model}`,
+          `**・CPU 使用率**: ${(data.cpu.free / data.cpu.total).toFixed(2)}%`,
+          `**・メモリ**: ${data.memory.free}GB使用中 (${data.memory.total}GBまで使用可能)`,
+          `**・ヒープメモリ**: ${data.memory.free}MB使用中 (合計: ${data.memory.total}MB)`
+        ].join('\n'))
     }
   },
   error: {
