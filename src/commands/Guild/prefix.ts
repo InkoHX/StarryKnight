@@ -1,6 +1,6 @@
 import { Guild, Message } from 'discord.js'
 
-import { Arguments, Client, Command, Required } from '..'
+import { Arguments, Client, Command, Required } from '../..'
 
 export default class extends Command {
   public constructor (client: Client) {
