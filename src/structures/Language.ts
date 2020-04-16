@@ -37,10 +37,14 @@ export class Language extends Structure {
 }
 
 export interface StatusCommandData {
+  uptime: {
+    process: string,
+    client: string,
+    host: string
+  },
   cpu: {
     model: string,
-    free: number,
-    total: number
+    loadavg: string[]
   },
   memory: {
     total: string,
