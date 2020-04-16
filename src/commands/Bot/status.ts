@@ -51,6 +51,6 @@ export default class extends Command {
 
   public getCpuLoadAverage (): Readonly<string[]> {
     return os.loadavg()
-      .map(value => (value * 10000 / 100).toFixed(2))
+      .map(value => (Math.round(value * 10000) / 100).toFixed(2))
   }
 }
