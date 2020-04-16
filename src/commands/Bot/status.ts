@@ -1,12 +1,8 @@
 import { Message } from 'discord.js'
 import os from 'os'
+import ms from 'pretty-ms'
 
 import { Client, Command } from '../..'
-
-interface CpuUsage {
-  free: number,
-  total: number
-}
 
 export default class extends Command {
   public constructor (client: Client) {
@@ -19,7 +15,6 @@ export default class extends Command {
     const language = await message.getLanguageData()
 
     const cpuModel = os.cpus().shift()?.model ?? 'unknown'
-    const cpuUsage = this.getCpuUsage()
     const heap = process.memoryUsage()
     const memoryTotal = os.totalmem() / 1024 / 1024 / 1024
     const memoryFree = os.freemem() / 1024 / 1024 / 1024
@@ -27,13 +22,18 @@ export default class extends Command {
     const heapTotal = (heap.heapTotal / 1024 / 1024).toFixed(2)
 
     const embed = language.command.status.statusContent({
+      uptime: {
+        process: ms(process.uptime() * 1000),
+        host: ms(os.uptime() * 1000),
+        client: ms(this.client.uptime ?? 0)
+      },
       bot: {
         channels: this.client.channels.cache.size,
         guilds: this.client.guilds.cache.size,
         users: this.client.users.cache.size
       },
       cpu: {
-        ...cpuUsage,
+        loadavg: this.getCpuLoadAverage(),
         model: cpuModel
       },
       memory: {
@@ -49,22 +49,8 @@ export default class extends Command {
     return message.channel.send(embed)
   }
 
-  public getCpuUsage (): Readonly<CpuUsage> {
-    const cpus = os.cpus()
-
-    let free = 0
-    let total = 0
-
-    cpus
-      .map(value => value.times)
-      .forEach(value => {
-        free += value.idle
-        total += value.irq + value.nice + value.sys + value.user
-      })
-    
-    return {
-      free,
-      total
-    }
+  public getCpuLoadAverage (): Readonly<string[]> {
+    return os.loadavg()
+      .map(value => (value * 10000 / 100).toFixed(2))
   }
 }

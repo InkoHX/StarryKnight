@@ -34,15 +34,18 @@ const data: LanguageData = {
         .setColor('GREEN')
         .setTimestamp()
         .addField('ボット', [
-          `・サーバー数: ${data.bot.guilds}`,
-          `・ユーザー数: ${data.bot.users}`,
-          `・チャンネル数: ${data.bot.channels}`
+          `**・サーバー数**: ${data.bot.guilds}`,
+          `**・ユーザー数**: ${data.bot.users}`,
+          `**・チャンネル数**: ${data.bot.channels}`,
+          `**・ボットの稼働時間**: ${data.uptime.client}`
         ].join('\n'))
-        .addField('マシン', [
-          `・CPU モデル: ${data.cpu.model}`,
-          `・CPU 使用率: ${(data.cpu.free / data.cpu.total).toFixed(2)}%`,
-          `・メモリ: ${data.memory.used}GB使用中 (${data.memory.total}GBまで使用可能)`,
-          `・ヒープメモリ: ${data.memory.heap.used}MB使用中 (合計: ${data.memory.heap.total}MB)`
+        .addField('システム', [
+          `**・CPU モデル**: ${data.cpu.model}`,
+          `**・CPU ロード**: ${data.cpu.loadavg.join('% | ')}%`,
+          `**・メモリ**: ${data.memory.used}GB使用中 (${data.memory.total}GBまで使用可能)`,
+          `**・ヒープメモリ**: ${data.memory.heap.used}MB使用中 (合計: ${data.memory.heap.total}MB)`,
+          `**・システムの稼働時間**: ${data.uptime.host}`,
+          `**・プロセスの稼働時間**: ${data.uptime.process}`
         ].join('\n'))
     }
   },
