@@ -40,7 +40,7 @@ const data: LanguageData = {
         ].join('\n'))
         .addField('マシン', [
           `・CPU モデル: ${data.cpu.model}`,
-          `・CPU 使用率: ${(data.cpu.free / data.cpu.total).toFixed(2)}`,
+          `・CPU 使用率: ${(data.cpu.free / data.cpu.total).toFixed(2)}%`,
           `・メモリ: ${data.memory.used}GB使用中 (${data.memory.total}GBまで使用可能)`,
           `・ヒープメモリ: ${data.memory.heap.used}MB使用中 (合計: ${data.memory.heap.total}MB)`
         ].join('\n'))
