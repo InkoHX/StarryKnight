@@ -3,13 +3,14 @@ import { Message } from 'discord.js'
 import { LanguageData } from '../../..'
 import toBoolean from './Boolean'
 import toCommand from './Command'
+import toDMChannel from './DMChannel'
 import toGuild from './Guild'
+import toGuildMember from './GuildMember'
 import toLanguage from './Language'
 import toNumber from './Number'
 import toString from './String'
-import toUser from './User'
 import toTextChannel from './TextChannel'
-import toDMChannel from './DMChannel'
+import toUser from './User'
 
 export type ArgumentResolverFunction = (data: unknown, paramIndex: number, language: LanguageData, message: Message) => unknown
 
@@ -21,7 +22,8 @@ export type ArgumentType = 'string' |
 'guild' |
 'user' |
 'textChannel' |
-'dmChannel'
+'dmChannel' |
+'guildMember'
 
 const resolvers: Record<ArgumentType, ArgumentResolverFunction> = {
   string: toString,
@@ -32,7 +34,8 @@ const resolvers: Record<ArgumentType, ArgumentResolverFunction> = {
   guild: toGuild,
   user: toUser,
   textChannel: toTextChannel,
-  dmChannel: toDMChannel
+  dmChannel: toDMChannel,
+  guildMember: toGuildMember
 }
 
 export default resolvers
