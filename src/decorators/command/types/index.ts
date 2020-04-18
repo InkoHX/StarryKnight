@@ -12,7 +12,7 @@ import toString from './String'
 import toTextChannel from './TextChannel'
 import toUser from './User'
 
-export type ArgumentResolverFunction = (data: unknown, paramIndex: number, language: LanguageData, message: Message) => unknown
+export type ArgumentResolverFunction = (data: unknown, paramIndex: number, language: LanguageData, message: Message) => Promise<unknown> | unknown
 
 export type ArgumentType = 'string' |
 'number' |
