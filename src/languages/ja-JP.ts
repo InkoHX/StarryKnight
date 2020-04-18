@@ -1,8 +1,8 @@
-import { MessageEmbed, PermissionString } from 'discord.js'
+import { GuildMember, MessageEmbed, PermissionString } from 'discord.js'
+import { DeepReadonly } from 'utility-types'
 
 import { Client, Command, Language } from '..'
 import { LanguageData, StatusCommandData } from '../structures'
-import { DeepReadonly } from 'utility-types'
 
 const data: LanguageData = {
   command: {
@@ -47,6 +47,25 @@ const data: LanguageData = {
           `**・システムの稼働時間**: ${data.uptime.host}`,
           `**・プロセスの稼働時間**: ${data.uptime.process}`
         ].join('\n'))
+    },
+    member: {
+      description: 'サーバーに居るメンバーの詳細情報を送信します。',
+      content: (member: GuildMember): MessageEmbed => new MessageEmbed()
+        .setTimestamp()
+        .setTitle(`${member.user.tag}の詳細`)
+        .setThumbnail(member.user.displayAvatarURL())
+        .setColor(member.displayColor)
+        .addField('ユーザーID', member.id)
+        .addField('ニックネーム', member.nickname ?? '設定されていません。')
+        .addField('役職', member.roles.cache
+          .filter(role => role.name !== '@everyone')
+          .map(role => role.name)
+          .join(', '))
+        .addField('権限', member.permissions
+          .toArray()
+          .join(', '))
+        .addField('参加した日', member.joinedAt ?? '不明')
+        .addField('このサーバーでNitro Boostを使用した日', member.premiumSince ?? 'ありません。')
     }
   },
   error: {
@@ -81,7 +100,8 @@ const data: LanguageData = {
       guild: (paramIndex: number): string => `第${paramIndex}引数にはサーバーのIDを入力してください。`,
       user: (paramIndex: number): string => `第${paramIndex}引数にはユーザーのメンション、またはIDを入力して下さい。`,
       textChannel: (paramIndex: number): string => `第${paramIndex}引数にはテキストチャンネルのIDまたは、チャンネルのメンションを入力してください。`,
-      dmChannel: (paramIndex: number): string => `第${paramIndex}引数にはDMチャンネルのIDを入力してください。`
+      dmChannel: (paramIndex: number): string => `第${paramIndex}引数にはDMチャンネルのIDを入力してください。`,
+      guildMember: (paramIndex: number): string => `第${paramIndex}引数にはサーバーに居るメンバーのID、メンションを入力してください。` 
     }
   },
   inhibitor: {
