@@ -1,4 +1,4 @@
-import { MessageEmbed, PermissionString } from 'discord.js'
+import { GuildMember, MessageEmbed, PermissionString } from 'discord.js'
 import { DeepPartial, DeepReadonly } from 'utility-types'
 
 import { Client, Command } from '..'
@@ -84,6 +84,10 @@ export interface BaseLanguageData {
     status: {
       description: string,
       statusContent: (data: DeepReadonly<StatusCommandData>) => MessageEmbed
+    },
+    member: {
+      description: string,
+      content: (member: GuildMember) => MessageEmbed
     }
   },
   error: {
@@ -99,7 +103,8 @@ export interface BaseLanguageData {
       guild: (paramIndex: number) => string,
       user: (paramIndex: number) => string,
       textChannel: (paramIndex: number) => string,
-      dmChannel: (paramIndex: number) => string
+      dmChannel: (paramIndex: number) => string,
+      guildMember: (paramIndex: number) => string
     }
   },
   inhibitor: {
