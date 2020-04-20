@@ -60,7 +60,7 @@ const data: LanguageData = {
         .addField('役職', member.roles.cache
           .filter(role => role.name !== '@everyone')
           .map(role => role.name)
-          .join(', '))
+          .join(', ') || '無し')
         .addField('権限', member.permissions
           .toArray()
           .join(', '))
