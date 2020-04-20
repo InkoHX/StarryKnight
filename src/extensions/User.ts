@@ -1,4 +1,4 @@
-import { Structures } from 'discord.js'
+import { ImageURLOptions, Structures } from 'discord.js'
 
 import { UserSettings } from '..'
 
@@ -18,6 +18,14 @@ export default Structures.extend('User', BaseClass => {
       if (!settings) return new UserSettings(this)
       
       return settings
+    }
+
+    public avatarURL (options?: ImageURLOptions): string | null {
+      return super.avatarURL(Object.assign(options ?? { format: 'png' }, { dynamic: true }) as ImageURLOptions)
+    }
+
+    public displayAvatarURL (options?: ImageURLOptions): string {
+      return super.displayAvatarURL(Object.assign(options ?? { format: 'png' }, { dynamic: true }) as ImageURLOptions)
     }
   }
 })
