@@ -3,7 +3,15 @@ import { Logger } from 'parrot-logger'
 import path from 'path'
 import { Connection, createConnection, getConnectionOptions } from 'typeorm'
 
-import { CommandRegistry, EventRegistry, LanguageRegistry, InhibitorRegistry, FinalizerRegistry } from './registries'
+import { Command } from '.'
+import { CommandRegistry, EventRegistry, FinalizerRegistry, InhibitorRegistry, LanguageRegistry } from './registries'
+
+interface HypieEvents extends ClientEvents {
+  commandError: [unknown, Message, Command],
+  commandMissingArgs: [Error, Message],
+  commandInhibitorError: [unknown, Message, Command],
+  commandFinalizerError: [unknown, Message, Command]
+}
 
 declare module 'discord.js' {
   interface Client {
