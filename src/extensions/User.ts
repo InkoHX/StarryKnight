@@ -4,7 +4,9 @@ import { UserSettings } from '..'
 
 declare module 'discord.js' {
   interface User {
-    getSettings(): Promise<UserSettings>
+    getSettings(): Promise<UserSettings>,
+    avatarURL(options?: ImageURLOptions): string | null,
+    displayAvatarURL(options?: ImageURLOptions): string
   }
 }
 
