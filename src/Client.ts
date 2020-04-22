@@ -2,6 +2,9 @@ import { Client as DjsClient, ClientEvents, ClientOptions, Message } from 'disco
 import { Logger } from 'parrot-logger'
 import path from 'path'
 import { Connection, createConnection, getConnectionOptions } from 'typeorm'
+import express, { Express } from 'express'
+import { useExpressServer, useContainer } from 'routing-controllers'
+import { Container } from 'typedi'
 
 import { Command } from '.'
 import { CommandRegistry, EventRegistry, FinalizerRegistry, InhibitorRegistry, LanguageRegistry } from './registries'
@@ -23,10 +26,13 @@ declare module 'discord.js' {
     readonly path: string,
     readonly prefix: string,
     readonly logger: Logger,
+    readonly server: Express,
 
     emit<K extends keyof HypieEvents>(event: K, ...args: HypieEvents[K]): boolean
   }
 }
+
+useContainer(Container)
 
 export class Client extends DjsClient {
   public readonly events: EventRegistry
@@ -44,6 +50,8 @@ export class Client extends DjsClient {
   public readonly prefix: string
 
   public readonly logger: Logger
+
+  public readonly server: Express
 
   public constructor (options?: ClientOptions) {
     super(options)
@@ -64,6 +72,8 @@ export class Client extends DjsClient {
       }
     })
 
+    this.server = express()
+
     this.path = require.main?.filename
       ? path.dirname(require.main.filename)
       : process.cwd()
@@ -72,13 +82,27 @@ export class Client extends DjsClient {
   }
 
   public async login (token?: string): Promise<string> {
+    useExpressServer(this.server, {
+      routePrefix: '/api',
+      controllers: [
+        path.join(__dirname, 'controllers', '*.{js,ts}')
+      ],
+      middlewares: [
+        path.join(__dirname, 'middlewares', '*.{js,ts}')
+      ],
+      interceptors: [
+        path.join(__dirname, 'interceptors', '*.{js,ts}')
+      ]
+    })
+
     await Promise.all([
       this.connectDatabase(),
       this.events.registerAll(),
       this.commands.registerAll(),
       this.languages.registerAll(),
       this.inhibitors.registerAll(),
-      this.finalizers.registerAll()
+      this.finalizers.registerAll(),
+      this.server.listen(process.env.PORT ?? 3000)
     ])
       .catch(error => this.logger.error(error))
 
