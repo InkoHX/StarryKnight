@@ -1,4 +1,16 @@
-import { Collection, GuildChannel, GuildEmoji, GuildMember, MessageEmbed, PermissionString, Role, User } from 'discord.js'
+import {
+  Collection,
+  ExplicitContentFilterLevel,
+  GuildChannel,
+  GuildEmoji,
+  GuildFeatures,
+  GuildMember,
+  MessageEmbed,
+  PermissionString,
+  Role,
+  User,
+  VerificationLevel
+} from 'discord.js'
 import { DeepPartial, DeepReadonly } from 'utility-types'
 
 import { Client, Command } from '..'
@@ -78,7 +90,10 @@ export interface ServerCommandData {
   boostCount: number,
   boostLevel: number,
   iconURL: string | null,
-  splashURL: string | null
+  splashURL: string | null,
+  verificationLevel: VerificationLevel,
+  feature: GuildFeatures[],
+  explicitContentFilter: ExplicitContentFilterLevel
 }
 
 export interface BaseLanguageData {

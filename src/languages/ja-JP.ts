@@ -72,6 +72,7 @@ const data: LanguageData = {
       content: (data): MessageEmbed => {
         const channels = data.channels
         const members = data.members
+        const emojis = data.emojis
 
         const embed = new MessageEmbed()
           .setColor('BLUE')
@@ -82,6 +83,9 @@ const data: LanguageData = {
           .addField('BANされたユーザー', data.bans.size, true)
           .addField('ブーストレベル', data.boostLevel, true)
           .addField('ブーストカウント', data.boostCount, true)
+          .addField('役職', data.roles.size, true)
+          .addField('認証レベル', data.verificationLevel, true)
+          .addField('コンテンツフィルター', data.explicitContentFilter, true)
           .addField('チャンネル', [
             `合計: ${channels.size}`,
             '',
@@ -98,8 +102,13 @@ const data: LanguageData = {
             `退席中: ${members.filter(member => member.presence.status === 'idle').size}`,
             `オフライン: ${members.filter(member => member.presence.status === 'offline').size}`
           ].join('\n'), true)
-          .addField('役職', data.roles.map(role => role.name).join(', ') || '無し', true)
-          .addField('カスタム絵文字', data.emojis.array().join(' ') || '無し', true)
+          .addField('カスタム絵文字', [
+            `合計: ${emojis.size}`,
+            '',
+            `絵文字: ${emojis.filter(emoji => !emoji.animated).size}`,
+            `アニメーション: ${emojis.filter(emoji => emoji.animated).size}`
+          ].join('\n'), true)
+          .addField('サーバーで使用できる機能', data.feature.join(', ') || '無し', true)
           .setFooter('サーバー作成日')
           .setTimestamp(data.createdTimestamp)
 
