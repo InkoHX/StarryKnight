@@ -24,6 +24,6 @@ export default Structures.extend('Message', BaseClass => class extends BaseClass
 
     if (!data || !baseData) throw new Error(`Key(${langCode}) does not exist.`)
 
-    return mergeObject(baseData, data) as unknown as LanguageData
+    return mergeObject(baseData, data) as LanguageData
   }
 })
