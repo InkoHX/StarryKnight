@@ -1,4 +1,4 @@
-import { GuildMember, MessageEmbed, PermissionString } from 'discord.js'
+import { Collection, GuildChannel, GuildEmoji, GuildMember, MessageEmbed, PermissionString, Role, User } from 'discord.js'
 import { DeepPartial, DeepReadonly } from 'utility-types'
 
 import { Client, Command } from '..'
@@ -61,6 +61,26 @@ export interface StatusCommandData {
   }
 }
 
+export interface ServerCommandData {
+  roles: Collection<string, Role>,
+  members: Collection<string, GuildMember>,
+  emojis: Collection<string, GuildEmoji>,
+  channels: Collection<string, GuildChannel>,
+  bans: Collection<string, {
+    user: User,
+    reason: string
+  }>,
+  owner: GuildMember | null,
+  name: string,
+  id: string,
+  region: string,
+  createdTimestamp: number,
+  boostCount: number,
+  boostLevel: number,
+  iconURL: string | null,
+  splashURL: string | null
+}
+
 export interface BaseLanguageData {
   command: {
     help: {
@@ -88,6 +108,10 @@ export interface BaseLanguageData {
     member: {
       description: string,
       content: (member: GuildMember) => MessageEmbed
+    },
+    server: {
+      description: string,
+      content: (data: ServerCommandData) => MessageEmbed
     }
   },
   error: {

@@ -66,6 +66,48 @@ const data: LanguageData = {
           .join(', '))
         .addField('参加した日', member.joinedAt ?? '不明')
         .addField('このサーバーでNitro Boostを使用した日', member.premiumSince ?? 'ありません。')
+    },
+    server: {
+      description: 'サーバーの詳細情報を送信します。',
+      content: (data): MessageEmbed => {
+        const channels = data.channels
+        const members = data.members
+
+        const embed = new MessageEmbed()
+          .setColor('BLUE')
+          .setTitle(data.name)
+          .addField('サーバーID', data.id, true)
+          .addField('オーナー', `${data.owner?.user?.tag ?? '不明'} (${data.owner?.id ?? '不明'})`, true)
+          .addField('リージョン', data.region, true)
+          .addField('BANされたユーザー', data.bans.size, true)
+          .addField('ブーストレベル', data.boostLevel, true)
+          .addField('ブーストカウント', data.boostCount, true)
+          .addField('チャンネル', [
+            `合計: ${channels.size}`,
+            '',
+            `テキスト: ${channels.filter(channel => channel.type === 'text').size}`,
+            `ボイス: ${channels.filter(channel => channel.type === 'voice').size}`,
+            `カテゴリ: ${channels.filter(channel => channel.type === 'category').size}`,
+            `ニュース: ${channels.filter(channel => channel.type === 'news').size}`,
+            `ストア: ${channels.filter(channel => channel.type === 'store').size}`
+          ].join('\n'), true)
+          .addField('メンバー', [
+            `合計: ${members.size}`,
+            '',
+            `オンライン: ${members.filter(member => member.presence.status === 'online').size}`,
+            `退席中: ${members.filter(member => member.presence.status === 'idle').size}`,
+            `オフライン: ${members.filter(member => member.presence.status === 'offline').size}`
+          ].join('\n'), true)
+          .addField('役職', data.roles.map(role => role.name).join(', ') || '無し', true)
+          .addField('カスタム絵文字', data.emojis.map(emoji => `:${emoji.name}:`).join(' ') || '無し', true)
+          .setFooter('サーバー作成日')
+          .setTimestamp(data.createdTimestamp)
+
+        if (data.iconURL) embed.setThumbnail(data.iconURL)
+        if (data.splashURL) embed.setImage(data.splashURL)
+
+        return embed
+      }
     }
   },
   error: {
