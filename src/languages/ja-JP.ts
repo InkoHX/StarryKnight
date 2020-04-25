@@ -99,7 +99,7 @@ const data: LanguageData = {
             `オフライン: ${members.filter(member => member.presence.status === 'offline').size}`
           ].join('\n'), true)
           .addField('役職', data.roles.map(role => role.name).join(', ') || '無し', true)
-          .addField('カスタム絵文字', data.emojis.map(emoji => `:${emoji.name}:`).join(' ') || '無し', true)
+          .addField('カスタム絵文字', data.emojis.array().join(' ') || '無し', true)
           .setFooter('サーバー作成日')
           .setTimestamp(data.createdTimestamp)
 
