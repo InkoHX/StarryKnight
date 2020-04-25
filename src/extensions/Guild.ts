@@ -1,10 +1,11 @@
-import { Structures } from 'discord.js'
+import { ImageURLOptions, Structures } from 'discord.js'
 
 import { GuildSettings } from '..'
 
 declare module 'discord.js' {
   interface Guild {
-    getSettings(): Promise<GuildSettings>
+    getSettings(): Promise<GuildSettings>,
+    iconURL(options?: ImageURLOptions): string | null
   }
 }
 
@@ -18,6 +19,14 @@ export default Structures.extend('Guild', BaseClass => {
       if (!settings) return new GuildSettings(this)
 
       return settings
+    }
+
+    public iconURL (options?: ImageURLOptions): string | null {
+      return super.iconURL(Object.assign(options ?? { format: 'png' }, { dynamic: true }) as ImageURLOptions)
+    }
+
+    public splashURL (options?: ImageURLOptions): string | null {
+      return super.splashURL(Object.assign(options ?? { format: 'png' }, { dynamic: true }) as ImageURLOptions)
     }
   }
 })
