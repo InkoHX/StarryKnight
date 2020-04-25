@@ -31,7 +31,7 @@ export default class extends Command {
       boostLevel: guild.premiumTier,
       id: guild.id,
       iconURL: guild.iconURL(),
-      splashURL: guild.splashURL(),
+      splashURL: guild.splashURL({ format: 'png', size: 2048 }),
       verificationLevel: guild.verificationLevel,
       feature: guild.features,
       explicitContentFilter: guild.explicitContentFilter
