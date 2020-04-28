@@ -89,10 +89,10 @@ export class Client extends DjsClient {
     const target = await getConnectionOptions()
     const source = {
       entities: [
-        path.join(__dirname, 'entities', '*.{js,ts}')
+        path.join(__dirname, 'entities', '**', '*.{js,ts}')
       ],
       migrations: [
-        path.join(__dirname, 'migrations', '*.{js,ts}')
+        path.join(__dirname, 'migrations', '**', '*.{js,ts}')
       ]
     }
 

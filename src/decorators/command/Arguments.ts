@@ -36,18 +36,17 @@ export function Arguments (target: Object, propKey: string, desc: PropertyDescri
           const index = value.index
           const arg = args[index]
 
-          const resolved = await Promise.resolve(resolvers[type](arg, index, language, message))
-
           switch (mode) {
             case 'required':
               if (typeof arg !== 'string') throw new Error(language.error.command.missingArguments(index))
 
-              args[index] = resolved
+              args[index] = await Promise.resolve(resolvers[type](arg, index, language, message))
               break
             case 'optional':
-              if (!arg) return
+              if (typeof arg === 'string') {
 
-              args[index] = resolved
+                args[index] = await Promise.resolve(resolvers[type](arg, index, language, message))
+              }
           }
         }
 

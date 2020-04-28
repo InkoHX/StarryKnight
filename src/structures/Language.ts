@@ -8,6 +8,7 @@ import {
   MessageEmbed,
   PermissionString,
   Role,
+  TextChannel,
   User,
   VerificationLevel
 } from 'discord.js'
@@ -127,6 +128,18 @@ export interface BaseLanguageData {
     server: {
       description: string,
       content: (data: ServerCommandData) => MessageEmbed
+    },
+    rule: {
+      description: string,
+      enable: {
+        missingTextChannel: string,
+        already: string,
+        enabled: string
+      },
+      disable: {
+        already: string,
+        disabled: string
+      }
     }
   },
   error: {
@@ -155,6 +168,11 @@ export interface BaseLanguageData {
     },
     nsfw: string,
     ownerOnly: string
+  },
+  event: {
+    sendRule: {
+      content: (channel: TextChannel) => string
+    }
   }
 }
 

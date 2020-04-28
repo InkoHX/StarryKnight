@@ -6,10 +6,10 @@ const production = {
   url: process.env.DATABASE_URL,
   migrationsRun: true,
   entities: [
-    path.join(__dirname, 'src', 'entities', '*.ts')
+    path.join(__dirname, 'src', '**', 'entities', '*.ts')
   ],
   migrations: [
-    path.join(__dirname, 'src', 'migrations', '*.ts')
+    path.join(__dirname, 'src', '**', 'migrations', '*.ts')
   ],
   cli: {
     migrationsDir: "src/migrations",
@@ -25,10 +25,10 @@ const development = {
   database: process.env.POSTGRES_DB,
   synchronize: true,
   entities: [
-    path.join(__dirname, 'src', 'entities', '*.ts')
+    path.join(__dirname, 'src', '**', 'entities', '*.ts')
   ],
   migrations: [
-    path.join(__dirname, 'src', 'migrations', '*.ts')
+    path.join(__dirname, 'src', '**', 'migrations', '*.ts')
   ],
   cli: {
     migrationsDir: "src/migrations",

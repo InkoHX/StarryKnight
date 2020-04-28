@@ -117,6 +117,18 @@ const data: LanguageData = {
 
         return embed
       }
+    },
+    rule: {
+      description: 'メッセージを送信したユーザーに対してルールチャンネルを読ませるようにリプライを送ります。',
+      enable: {
+        missingTextChannel: 'ルールチャンネルを指定してください。',
+        already: '既に有効化されています。',
+        enabled: '有効化しました。'
+      },
+      disable: {
+        already: '既に無効化されています。',
+        disabled: '無効化しました。'
+      }
     }
   },
   error: {
@@ -176,6 +188,11 @@ const data: LanguageData = {
     },
     nsfw: 'このコマンドはNSFWチャンネルのみ使用可能です。',
     ownerOnly: 'このコマンドはアプリケーションのオーナーのみが使用できます。'
+  },
+  event: {
+    sendRule: {
+      content: (channel): string => `ようこそ**${channel.guild.name}**へ、${channel}の内容をよく読んでから利用してください。（このメッセージは一回しか表示されません。）`
+    }
   }
 }
 
