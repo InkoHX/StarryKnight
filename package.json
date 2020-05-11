@@ -18,7 +18,7 @@
     "dotenv-safe": "^8.2.0",
     "glob": "^7.1.6",
     "parrot-logger": "^0.0.3",
-    "pg": "^8.0.3",
+    "pg": "^8.1.0",
     "pretty-ms": "^7.0.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.24",
