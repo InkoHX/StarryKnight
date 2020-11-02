@@ -21,7 +21,7 @@
     "pg": "^8.3.0",
     "pretty-ms": "^7.0.0",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.26",
+    "typeorm": "^0.2.29",
     "utility-types": "^3.10.0",
     "yargs-parser": "^18.1.3"
   },
